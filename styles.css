@@ -60,6 +60,9 @@ body{ overflow-x:hidden !important; }
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
+/* чужая тема (Squarespace) включает перенос по буквам — свои слова не рвём */
+.nav,.hero,.section,.finale,.foot,
+.nav *,.hero *,.section *,.finale *,.foot *{overflow-wrap:normal;word-break:normal;hyphens:none}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{
   background:var(--soot);
@@ -100,12 +103,12 @@ button{font:inherit;cursor:pointer}
 .nav-mark{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
 .nav-mark .mk{height:30px;filter:drop-shadow(0 2px 10px rgba(201,153,78,.35))}
 .nav-mark span{
-  font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;
+  font-family:var(--serif);font-style:italic;font-weight:300;font-size:24px;
   color:var(--paper-hi);letter-spacing:.01em;white-space:nowrap;
 }
 .nav-links{display:flex;gap:clamp(14px,2vw,30px);margin-left:auto;align-items:center}
 .nav-links a{
-  font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;
   color:var(--fog);text-decoration:none;padding:6px 0;position:relative;transition:color .35s ease;
 }
 .nav-links a::after{
@@ -115,7 +118,7 @@ button{font:inherit;cursor:pointer}
 .nav-links a:hover,.nav-links a.active{color:var(--paper-hi)}
 .nav-links a:hover::after,.nav-links a.active::after{right:0}
 .nav-cta{
-  font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;
   color:var(--soot);background:var(--leaf);border:1px solid var(--leaf);
   padding:10px 18px;border-radius:1px;text-decoration:none;font-weight:500;
   transition:background .3s ease, box-shadow .3s ease, transform .3s ease;
@@ -149,7 +152,7 @@ button{font:inherit;cursor:pointer}
 
 .hero-left{position:relative;z-index:8;max-width:760px}
 .pre{
-  font-family:var(--mono);font-size:clamp(10px,.85vw,12px);letter-spacing:.55em;
+  font-family:var(--mono);font-size:clamp(11px,.9vw,13px);letter-spacing:.55em;
   color:var(--leaf);text-transform:uppercase;margin-bottom:28px;
   display:flex;align-items:center;gap:14px;
 }
@@ -157,24 +160,25 @@ button{font:inherit;cursor:pointer}
 .pre i{font-style:normal;color:var(--fog)}
 .hero h1{
   font-family:var(--serif);font-style:italic;font-weight:300;
-  font-size:clamp(58px,10.2vw,168px);line-height:.9;letter-spacing:.004em;
+  font-size:clamp(52px,10vw,168px);line-height:.9;letter-spacing:.004em;
+  white-space:nowrap;
   color:var(--leaf-2);margin-bottom:6px;
   text-shadow:0 2px 60px rgba(201,153,78,.18), 0 1px 30px rgba(0,0,0,.5);
 }
 .hero .stamp{
-  display:block;font-family:var(--mono);font-size:clamp(10px,.85vw,14px);
+  display:block;font-family:var(--mono);font-size:clamp(11px,.9vw,15px);
   letter-spacing:.5em;color:var(--fog);text-transform:uppercase;margin:18px 0 30px;
 }
 .hero-quote{
   font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:clamp(16px,1.35vw,23px);line-height:1.5;color:#cdc6b8;
+  font-size:clamp(19px,1.5vw,26px);line-height:1.55;color:#cdc6b8;
   max-width:600px;padding-left:24px;border-left:1px solid rgba(201,153,78,.36);margin-bottom:34px;
 }
 .hero-quote b{color:var(--paper-hi);font-weight:500;font-style:normal}
 .hero-quote em{color:var(--leaf-2)}
 .cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .btn{
-  padding:15px 28px;font-family:var(--mono);font-size:11px;letter-spacing:.32em;
+  padding:16px 30px;font-family:var(--mono);font-size:12.5px;letter-spacing:.32em;
   text-transform:uppercase;border-radius:1px;font-weight:500;text-decoration:none;
   display:inline-block;transition:transform .3s ease, box-shadow .3s ease, background .3s ease, border-color .3s ease, color .3s ease;
 }
@@ -184,10 +188,10 @@ button{font:inherit;cursor:pointer}
 .btn-ghost:hover{border-color:var(--paper);transform:translateY(-2px)}
 .hero-meta{
   margin-top:38px;display:flex;gap:clamp(20px,3.2vw,42px);flex-wrap:wrap;
-  font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--fog);text-transform:uppercase;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;color:var(--fog);text-transform:uppercase;
 }
 .hero-meta b{
-  color:var(--paper-hi);font-weight:500;display:block;margin-top:5px;font-size:15px;
+  color:var(--paper-hi);font-weight:500;display:block;margin-top:5px;font-size:17px;
   letter-spacing:.02em;font-family:var(--serif);font-style:italic;text-transform:none;
 }
 .hero-right{position:relative;z-index:6;display:flex;align-items:center;justify-content:center;height:100%}
@@ -202,7 +206,7 @@ button{font:inherit;cursor:pointer}
 }
 .stamp-corner{
   position:absolute;top:clamp(84px,11vh,120px);right:var(--gutter);z-index:9;
-  font-family:var(--mono);font-size:10px;letter-spacing:.4em;color:var(--acorn);
+  font-family:var(--mono);font-size:11px;letter-spacing:.4em;color:var(--acorn);
   border:1px solid rgba(138,90,42,.4);padding:6px 11px;background:rgba(138,90,42,.07);
   text-transform:uppercase;transform:rotate(-2deg);
 }
@@ -210,12 +214,12 @@ button{font:inherit;cursor:pointer}
   position:absolute;bottom:0;left:0;right:0;z-index:9;
   background:rgba(8,7,5,.72);border-top:1px solid rgba(201,153,78,.2);backdrop-filter:blur(5px);
   padding:12px var(--gutter);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.3em;color:var(--fog);text-transform:uppercase;
+  font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--fog);text-transform:uppercase;
 }
 .tape b{color:var(--leaf);font-weight:500;letter-spacing:.4em}
 .scroll-cue{
   position:absolute;bottom:64px;left:50%;transform:translateX(-50%);z-index:9;
-  font-family:var(--mono);font-size:9px;letter-spacing:.4em;color:var(--fog);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.4em;color:var(--fog);
   text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px;
   text-decoration:none;transition:color .3s ease;
 }
@@ -238,13 +242,13 @@ button{font:inherit;cursor:pointer}
 .section + .section{border-top:var(--rule)}
 .sec-h{display:flex;align-items:baseline;gap:18px;margin-bottom:clamp(40px,6vh,68px);flex-wrap:wrap}
 .sec-num{
-  font-family:var(--mono);font-size:11px;color:var(--leaf);letter-spacing:.32em;
+  font-family:var(--mono);font-size:12px;color:var(--leaf);letter-spacing:.32em;
   border:1px solid rgba(201,153,78,.34);padding:6px 11px;background:rgba(201,153,78,.05);flex-shrink:0;
 }
 .sec-ttl{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(24px,2.6vw,34px);color:var(--paper-hi);letter-spacing:.01em}
-.sec-ttl b{font-style:normal;font-family:var(--prose);font-weight:400;color:var(--body);font-size:clamp(13px,1.1vw,16px);margin-left:8px}
+.sec-ttl b{font-style:normal;font-family:var(--prose);font-weight:400;color:var(--body);font-size:clamp(15px,1.2vw,18px);margin-left:8px}
 .sec-rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);min-width:40px}
-.sec-meta{font-family:var(--mono);font-size:9.5px;color:var(--fog);letter-spacing:.25em;text-transform:uppercase}
+.sec-meta{font-family:var(--mono);font-size:11px;color:var(--fog);letter-spacing:.25em;text-transform:uppercase}
 
 /* ---------- §01 роман ---------- */
 /* двор с качелями — фон под текстом; слои уводим за содержимое
@@ -268,22 +272,22 @@ button{font:inherit;cursor:pointer}
   font-family:var(--serif);font-style:italic;font-weight:300;
   font-size:clamp(28px,3.4vw,50px);line-height:1.2;color:var(--paper-hi);margin-bottom:34px;
 }
-.about p{font-size:clamp(15px,1.15vw,17px);line-height:1.8;margin-bottom:20px;max-width:60ch}
+.about p{font-size:clamp(17px,1.3vw,19px);line-height:1.8;margin-bottom:20px;max-width:60ch}
 .about p strong{color:var(--paper-hi);font-weight:500}
 .about-card{
   border:var(--rule);background:rgba(14,13,11,.74);backdrop-filter:blur(8px);
   padding:clamp(24px,2.6vw,36px);
 }
-.about-card .tk{font-family:var(--mono);font-size:9.5px;letter-spacing:.3em;color:var(--leaf);text-transform:uppercase;margin-bottom:20px}
+.about-card .tk{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--leaf);text-transform:uppercase;margin-bottom:20px}
 .about-card .tone{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(22px,2.1vw,30px);line-height:1.3;color:var(--paper-hi);margin-bottom:22px}
-.about-card p{font-size:14.5px;line-height:1.75;color:var(--body)}
+.about-card p{font-size:16.5px;line-height:1.75;color:var(--body)}
 .facts{list-style:none;margin-top:28px;border-top:1px dashed var(--line)}
 .facts li{
   display:flex;justify-content:space-between;gap:16px;align-items:baseline;
   padding:13px 0;border-bottom:1px dashed var(--line);
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;color:var(--fog);text-transform:uppercase;
+  font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--fog);text-transform:uppercase;
 }
-.facts li b{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--paper-hi);font-weight:500;letter-spacing:.01em;text-transform:none}
+.facts li b{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--paper-hi);font-weight:500;letter-spacing:.01em;text-transform:none}
 
 /* ---------- §02 карта ---------- */
 .map-wrap{
@@ -347,7 +351,7 @@ button{font:inherit;cursor:pointer}
 
 .map-hint{
   position:absolute;left:clamp(16px,2vw,30px);bottom:clamp(14px,2vw,26px);
-  font-family:var(--mono);font-size:9px;letter-spacing:.3em;color:#4e4840;text-transform:uppercase;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;color:#4e4840;text-transform:uppercase;
 }
 
 /* панель цитаты */
@@ -370,19 +374,19 @@ button{font:inherit;cursor:pointer}
 .map-panel.has-photo .mp-bg{opacity:1;transform:none}
 .map-panel.has-photo .mp-veil{opacity:1}
 .mp-idle,.mp-body{position:relative;z-index:1}
-.mp-idle{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:#4e4840;text-transform:uppercase;line-height:2.1}
+.mp-idle{font-family:var(--mono);font-size:11.5px;letter-spacing:.3em;color:#4e4840;text-transform:uppercase;line-height:2.1}
 .mp-body{display:none}
 .map-panel.on .mp-idle{display:none}
 .map-panel.on .mp-body{display:block;animation:rise .55s cubic-bezier(.22,1,.36,1)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.mp-act{font-family:var(--mono);font-size:9.5px;letter-spacing:.4em;color:var(--leaf);text-transform:uppercase;margin-bottom:14px}
+.mp-act{font-family:var(--mono);font-size:11px;letter-spacing:.4em;color:var(--leaf);text-transform:uppercase;margin-bottom:14px}
 .mp-city{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(30px,3vw,44px);color:var(--paper-hi);line-height:1;margin-bottom:6px}
-.mp-geo{font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;color:var(--fog);text-transform:uppercase;margin-bottom:26px}
+.mp-geo{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--fog);text-transform:uppercase;margin-bottom:26px}
 .mp-quote{
-  font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(17px,1.5vw,24px);
+  font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(20px,1.7vw,27px);
   line-height:1.5;color:#d6cfc0;padding-left:20px;border-left:1px solid rgba(201,153,78,.4);
 }
-.mp-note{margin-top:22px;font-family:var(--prose);font-style:italic;font-size:13.5px;line-height:1.7;color:#8d8578}
+.mp-note{margin-top:22px;font-family:var(--prose);font-style:italic;font-size:15.5px;line-height:1.7;color:#8d8578}
 
 /* ---------- §03 акты ---------- */
 .acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:var(--rule)}
@@ -392,10 +396,10 @@ button{font:inherit;cursor:pointer}
   transition:background .55s ease, transform .55s cubic-bezier(.22,1,.36,1);
 }
 .act:hover{background:#131109;transform:translateY(-4px)}
-.act .n{font-family:var(--mono);font-size:10px;letter-spacing:.4em;color:var(--leaf);text-transform:uppercase}
+.act .n{font-family:var(--mono);font-size:11.5px;letter-spacing:.4em;color:var(--leaf);text-transform:uppercase}
 .act .t{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(26px,2.4vw,36px);color:var(--paper-hi);line-height:1.05}
-.act .d{font-family:var(--prose);font-style:italic;font-size:14px;line-height:1.65;color:#8d8578}
-.act .s{font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:#4e4840;text-transform:uppercase}
+.act .d{font-family:var(--prose);font-style:italic;font-size:16px;line-height:1.7;color:#8d8578}
+.act .s{font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;color:#4e4840;text-transform:uppercase}
 
 /* ---------- §04 голос ---------- */
 /* освещённое окно — фон под текстом, левее центра.
@@ -404,7 +408,8 @@ button{font:inherit;cursor:pointer}
 #golos{position:relative;isolation:isolate;overflow:hidden}
 #golos::before{
   content:"";position:absolute;z-index:-1;pointer-events:none;
-  left:3%;top:52%;transform:translateY(-50%);
+  /* сдвинуто вправо на собственную ширину */
+  left:calc(4% + clamp(230px,30vw,410px));top:52%;transform:translateY(-50%);
   width:clamp(230px,30vw,410px);aspect-ratio:1;
   background:var(--photo-window) center/contain no-repeat;
   opacity:.5;
@@ -412,7 +417,7 @@ button{font:inherit;cursor:pointer}
 /* текст лежит поверх освещённого окна — держим его тенью */
 .voice .voice-lead,.voice > .reveal p{text-shadow:0 1px 12px rgba(6,5,4,.95), 0 0 3px rgba(6,5,4,.7)}
 .voice{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,70px);align-items:start}
-.voice p{font-size:15px;line-height:1.85;max-width:52ch}
+.voice p{font-size:17px;line-height:1.85;max-width:52ch}
 /* .voice p специфичнее одного класса — поэтому лид задаём через .voice */
 .voice .voice-lead{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(26px,3vw,42px);line-height:1.25;color:var(--paper-hi);margin-bottom:26px;max-width:none}
 .formulas{list-style:none;display:flex;flex-direction:column;gap:2px}
@@ -429,7 +434,7 @@ button{font:inherit;cursor:pointer}
 /* ---------- §05 издание ---------- */
 .editions{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(18px,2vw,26px)}
 .ed{border:var(--rule);background:#0e0d0b;padding:clamp(24px,2.4vw,38px);position:relative;overflow:hidden}
-.ed .tk{font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:var(--fog);text-transform:uppercase;margin-bottom:24px;display:flex;justify-content:space-between;gap:12px}
+.ed .tk{font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;color:var(--fog);text-transform:uppercase;margin-bottom:24px;display:flex;justify-content:space-between;gap:12px}
 .ed .tk b{color:var(--leaf);font-weight:500}
 .cover-slot{display:flex;justify-content:center;perspective:1200px}
 .cover{
@@ -456,7 +461,7 @@ button{font:inherit;cursor:pointer}
 .cover.min .ln{font-family:var(--prose);font-style:italic;font-size:10.5px;line-height:1.5;color:var(--body);margin-top:12px}
 .cover.min .corner{display:flex;justify-content:flex-end}
 .cover.min .corner .mk{height:48px;filter:drop-shadow(0 4px 16px rgba(201,153,78,.35))}
-.ed .spec{margin-top:24px;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;color:#4e4840;text-transform:uppercase;border-top:1px dashed var(--line);padding-top:14px}
+.ed .spec{margin-top:24px;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:#4e4840;text-transform:uppercase;border-top:1px dashed var(--line);padding-top:14px}
 
 /* ---------- финал ---------- */
 .finale{
@@ -465,17 +470,17 @@ button{font:inherit;cursor:pointer}
 }
 .finale .mark{height:104px;margin:0 auto 30px;filter:drop-shadow(0 10px 44px rgba(201,153,78,.4));animation:sway 15s ease-in-out infinite}
 .finale h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(32px,5vw,74px);line-height:1.08;color:var(--paper-hi);margin-bottom:20px}
-.finale .sub{font-family:var(--prose);font-style:italic;font-size:clamp(14px,1.2vw,17px);color:#8d8578;margin-bottom:44px}
+.finale .sub{font-family:var(--prose);font-style:italic;font-size:clamp(16px,1.3vw,19px);color:#8d8578;margin-bottom:44px}
 .subscribe{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:520px;margin:0 auto}
 .subscribe input{
   flex:1;min-width:220px;background:transparent;border:1px solid rgba(232,223,200,.18);
-  color:var(--paper-hi);padding:15px 18px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  color:var(--paper-hi);padding:16px 18px;font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;
   border-radius:1px;transition:border-color .35s ease;
 }
-.subscribe input::placeholder{color:#4e4840;text-transform:uppercase;letter-spacing:.24em;font-size:10px}
+.subscribe input::placeholder{color:#4e4840;text-transform:uppercase;letter-spacing:.24em;font-size:11.5px}
 .subscribe input:focus{outline:none;border-color:var(--leaf)}
 .sub-done{
-  font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--leaf);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.3em;color:var(--leaf);
   text-transform:uppercase;margin-top:22px;opacity:0;transition:opacity .6s ease;
 }
 .sub-done.on{opacity:1}
@@ -483,7 +488,7 @@ button{font:inherit;cursor:pointer}
 .foot{
   padding:20px var(--gutter);border-top:var(--rule);
   display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
-  font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:#4e4840;text-transform:uppercase;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;color:#4e4840;text-transform:uppercase;
 }
 .foot b{color:var(--leaf);font-weight:500}
 
@@ -502,7 +507,7 @@ button{font:inherit;cursor:pointer}
   .hero-leaf{height:min(34vh,280px)}
   .about,.voice{grid-template-columns:1fr}
   /* в столбик окно уходит под вводный текст, ближе к левому краю */
-  #golos::before{width:clamp(200px,56vw,300px);left:-3%;top:34%;opacity:.42}
+  #golos::before{width:clamp(200px,56vw,300px);left:auto;right:-4%;top:34%;opacity:.42}
   /* на узком экране секция вытягивается в столбик, и фотография превращалась
      в вертикальную полоску — показываем её кадром сверху и растворяем вниз */
   #roman::before{

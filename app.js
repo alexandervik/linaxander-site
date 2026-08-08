@@ -245,8 +245,8 @@ var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       m.ring.setAttribute('r', 11 * k);
       m.dot .setAttribute('r', 3.8 * k);
       m.hit .setAttribute('r', 30 * k);
-      m.lbl.setAttribute('font-size', 12 * k);
-      m.sub.setAttribute('font-size', 8.5 * k);
+      m.lbl.setAttribute('font-size', 13.5 * k);
+      m.sub.setAttribute('font-size', 10 * k);
       m.lbl.setAttribute('stroke-width', 3 * k);    // тёмная подложка под текстом
       m.sub.setAttribute('stroke-width', 2.4 * k);
 
