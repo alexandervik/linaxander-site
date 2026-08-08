@@ -1,0 +1,531 @@
+/* ══════════════════════════════════════════════════════════════
+   Squarespace: прячем меню, объявление и футер темы и снимаем
+   ограничение ширины — страница должна остаться пустым холстом.
+   На других сайтах этот блок просто ни на что не влияет.
+   ══════════════════════════════════════════════════════════════ */
+#header, .header, .Header, .Mobile-bar, .sqs-announcement-bar-dropzone,
+#footer-sections, .Footer, #preFooter, .sqs-cookie-banner-v2,
+.header-announcement-bar-wrapper, .page-title { display:none !important; }
+
+#sections, .page-section, .content-wrapper, #canvas, #content, .sqs-layout,
+.sqs-block, .sqs-block-content, .fluid-engine, [data-section-id],
+#siteWrapper, .site-wrapper, #pageWrapper, #page, .Main, .Content {
+  max-width:none !important; width:100% !important;
+  margin:0 !important; padding:0 !important;
+  background:transparent !important; border:0 !important;
+}
+.page-section, [data-section-id]{ min-height:0 !important; }
+body{ overflow-x:hidden !important; }
+
+/* ============================================================
+   ЛИНАКСАНДЕР · ЛЕНДИНГ
+   Палитра и типографика — по бренд-буку в. 3.0 (§04, §05)
+   ============================================================ */
+:root{
+  --soot:#0a0908;        /* сажа · фон */
+  --ink:#1a1614;         /* чернила */
+  --bark:#3a2a1c;        /* кора */
+  --acorn:#8a5a2a;       /* жёлудь · бронза */
+  --leaf:#c9994e;        /* лист · золото · акцент */
+  --leaf-2:#e2b466;      /* свет · блик */
+  --paper:#e8dfc8;       /* бумага */
+  --paper-hi:#f0e8d6;
+  --fog:#7a7268;         /* туман · служебное */
+  --body:#bdb6a8;
+  --line:#2a2520;
+
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --prose:'Lora', Georgia, serif;
+  --mono:'JetBrains Mono', ui-monospace, monospace;
+
+  --gutter:clamp(20px, 5vw, 76px);
+  --rule:1px solid var(--line);
+
+  /* знак «золотой лист» — встроен один раз, отсюда его берут все места */
+  --mark:url("assets/leaf.png");
+  /* фотографии городов — фон панели с цитатой */
+  --photo-msk:url("assets/moscow.jpg");
+  --photo-ams:url("assets/amsterdam.jpg");
+  --photo-sth:url("assets/stockholm.jpg");
+  --photo-wrs:url("assets/warsaw.jpg");
+  --photo-yard:url("assets/yard-swing.jpg");
+  --photo-window:url("assets/window.jpg");
+  /* рельефная карта Европы — подложка §02 */
+  --europe:url("assets/europe-map.jpg");
+}
+/* знак. Пропорции исходника 323 × 457, задаём только высоту */
+.mk{
+  display:block;flex-shrink:0;aspect-ratio:323/457;
+  background:var(--mark) center/contain no-repeat;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{
+  background:var(--soot);
+  color:var(--body);
+  font-family:var(--prose);
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:rgba(201,153,78,.28);color:var(--paper-hi)}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer}
+
+/* ---------- служебные слои ---------- */
+#rain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.grain{
+  position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.4  0 0 0 0 0.36  0 0 0 0 0.3  0 0 0 0.1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.vignette{
+  position:fixed;inset:0;z-index:4;pointer-events:none;
+  background:radial-gradient(ellipse 120% 90% at 50% 45%, transparent 45%, rgba(4,3,3,.72) 100%);
+}
+.lx-main,.lx-nav,.lx-foot{position:relative;z-index:5}
+
+/* ---------- шапка ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;gap:clamp(16px,3vw,44px);
+  padding:16px var(--gutter);
+  border-bottom:1px solid transparent;
+  transition:background .5s ease, border-color .5s ease, padding .5s ease, backdrop-filter .5s ease;
+}
+.nav.stuck{
+  background:rgba(8,7,6,.82);backdrop-filter:blur(14px);
+  border-bottom-color:var(--line);padding-top:11px;padding-bottom:11px;
+}
+.nav-mark{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
+.nav-mark .mk{height:30px;filter:drop-shadow(0 2px 10px rgba(201,153,78,.35))}
+.nav-mark span{
+  font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;
+  color:var(--paper-hi);letter-spacing:.01em;white-space:nowrap;
+}
+.nav-links{display:flex;gap:clamp(14px,2vw,30px);margin-left:auto;align-items:center}
+.nav-links a{
+  font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--fog);text-decoration:none;padding:6px 0;position:relative;transition:color .35s ease;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--leaf);
+  transition:right .45s cubic-bezier(.22,1,.36,1);
+}
+.nav-links a:hover,.nav-links a.active{color:var(--paper-hi)}
+.nav-links a:hover::after,.nav-links a.active::after{right:0}
+.nav-cta{
+  font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--soot);background:var(--leaf);border:1px solid var(--leaf);
+  padding:10px 18px;border-radius:1px;text-decoration:none;font-weight:500;
+  transition:background .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.nav-cta:hover{background:var(--leaf-2);box-shadow:0 0 26px rgba(201,153,78,.35);transform:translateY(-1px)}
+
+/* ---------- герой ---------- */
+.hero{
+  min-height:100svh;position:relative;overflow:hidden;
+  display:grid;grid-template-columns:1.05fr .95fr;align-items:center;
+  gap:40px;padding:clamp(120px,14vh,180px) var(--gutter) 96px;
+  background:
+    radial-gradient(ellipse 720px 560px at 74% 48%, rgba(201,153,78,.15), transparent 66%),
+    radial-gradient(ellipse 900px 640px at 82% 44%, rgba(138,90,42,.11), transparent 72%),
+    linear-gradient(180deg,#0a0908 0%,#100e0b 52%,#07060a 100%);
+}
+.hero-rules{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(0deg,rgba(201,153,78,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,153,78,.022) 1px,transparent 1px);
+  background-size:88px 88px;
+  -webkit-mask-image:radial-gradient(ellipse 76% 62% at 50% 48%, #000 28%, transparent 86%);
+  mask-image:radial-gradient(ellipse 76% 62% at 50% 48%, #000 28%, transparent 86%);
+}
+.ct{position:absolute;width:26px;height:26px;border-color:rgba(232,223,200,.14);border-style:solid;border-width:0;z-index:6}
+.ct.tl{top:18px;left:18px;border-top-width:1px;border-left-width:1px}
+.ct.tr{top:18px;right:18px;border-top-width:1px;border-right-width:1px}
+.ct.bl{bottom:18px;left:18px;border-bottom-width:1px;border-left-width:1px}
+.ct.br{bottom:18px;right:18px;border-bottom-width:1px;border-right-width:1px}
+
+.hero-left{position:relative;z-index:8;max-width:760px}
+.pre{
+  font-family:var(--mono);font-size:clamp(10px,.85vw,12px);letter-spacing:.55em;
+  color:var(--leaf);text-transform:uppercase;margin-bottom:28px;
+  display:flex;align-items:center;gap:14px;
+}
+.pre::before{content:"";display:inline-block;width:clamp(28px,3vw,46px);height:1px;background:var(--leaf)}
+.pre i{font-style:normal;color:var(--fog)}
+.hero h1{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(58px,10.2vw,168px);line-height:.9;letter-spacing:.004em;
+  color:var(--leaf-2);margin-bottom:6px;
+  text-shadow:0 2px 60px rgba(201,153,78,.18), 0 1px 30px rgba(0,0,0,.5);
+}
+.hero .stamp{
+  display:block;font-family:var(--mono);font-size:clamp(10px,.85vw,14px);
+  letter-spacing:.5em;color:var(--fog);text-transform:uppercase;margin:18px 0 30px;
+}
+.hero-quote{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(16px,1.35vw,23px);line-height:1.5;color:#cdc6b8;
+  max-width:600px;padding-left:24px;border-left:1px solid rgba(201,153,78,.36);margin-bottom:34px;
+}
+.hero-quote b{color:var(--paper-hi);font-weight:500;font-style:normal}
+.hero-quote em{color:var(--leaf-2)}
+.cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn{
+  padding:15px 28px;font-family:var(--mono);font-size:11px;letter-spacing:.32em;
+  text-transform:uppercase;border-radius:1px;font-weight:500;text-decoration:none;
+  display:inline-block;transition:transform .3s ease, box-shadow .3s ease, background .3s ease, border-color .3s ease, color .3s ease;
+}
+.btn-gold{background:var(--leaf);color:var(--soot);border:1px solid var(--leaf)}
+.btn-gold:hover{background:var(--leaf-2);border-color:var(--leaf-2);transform:translateY(-2px);box-shadow:0 0 34px rgba(201,153,78,.38)}
+.btn-ghost{background:transparent;color:var(--paper-hi);border:1px solid rgba(232,223,200,.22)}
+.btn-ghost:hover{border-color:var(--paper);transform:translateY(-2px)}
+.hero-meta{
+  margin-top:38px;display:flex;gap:clamp(20px,3.2vw,42px);flex-wrap:wrap;
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--fog);text-transform:uppercase;
+}
+.hero-meta b{
+  color:var(--paper-hi);font-weight:500;display:block;margin-top:5px;font-size:15px;
+  letter-spacing:.02em;font-family:var(--serif);font-style:italic;text-transform:none;
+}
+.hero-right{position:relative;z-index:6;display:flex;align-items:center;justify-content:center;height:100%}
+.hero-leaf{
+  height:min(66vh,620px);
+  filter:drop-shadow(0 18px 70px rgba(201,153,78,.42));
+  animation:sway 13s ease-in-out infinite;
+}
+@keyframes sway{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-16px) rotate(1.6deg)}
+}
+.stamp-corner{
+  position:absolute;top:clamp(84px,11vh,120px);right:var(--gutter);z-index:9;
+  font-family:var(--mono);font-size:10px;letter-spacing:.4em;color:var(--acorn);
+  border:1px solid rgba(138,90,42,.4);padding:6px 11px;background:rgba(138,90,42,.07);
+  text-transform:uppercase;transform:rotate(-2deg);
+}
+.tape{
+  position:absolute;bottom:0;left:0;right:0;z-index:9;
+  background:rgba(8,7,5,.72);border-top:1px solid rgba(201,153,78,.2);backdrop-filter:blur(5px);
+  padding:12px var(--gutter);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.3em;color:var(--fog);text-transform:uppercase;
+}
+.tape b{color:var(--leaf);font-weight:500;letter-spacing:.4em}
+.scroll-cue{
+  position:absolute;bottom:64px;left:50%;transform:translateX(-50%);z-index:9;
+  font-family:var(--mono);font-size:9px;letter-spacing:.4em;color:var(--fog);
+  text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px;
+  text-decoration:none;transition:color .3s ease;
+}
+.scroll-cue:hover{color:var(--leaf)}
+.scroll-cue::after{content:"";width:1px;height:44px;background:linear-gradient(180deg,var(--leaf),transparent);animation:drip 2.6s ease-in-out infinite}
+@keyframes drip{0%{opacity:0;transform:scaleY(.2)}40%{opacity:1}100%{opacity:0;transform:scaleY(1)}}
+
+/* дрейфующие листья */
+.drift{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.drift .mk{position:absolute;opacity:.22;filter:drop-shadow(0 2px 10px rgba(0,0,0,.5))}
+.drift .mk:nth-child(1){top:14%;left:26%;height:32px;animation:fall1 26s linear infinite}
+.drift .mk:nth-child(2){top:-8%;left:52%;height:24px;animation:fall2 34s linear infinite}
+.drift .mk:nth-child(3){top:-12%;left:78%;height:28px;animation:fall1 41s linear infinite 6s}
+.drift .mk:nth-child(4){top:-6%;left:8%;height:20px;animation:fall2 30s linear infinite 12s}
+@keyframes fall1{0%{transform:translate(0,-14vh) rotate(12deg)}100%{transform:translate(-90px,116vh) rotate(340deg)}}
+@keyframes fall2{0%{transform:translate(0,-14vh) rotate(-24deg)}100%{transform:translate(120px,116vh) rotate(300deg)}}
+
+/* ---------- каркас секций ---------- */
+.section{padding:clamp(90px,13vh,150px) var(--gutter);position:relative}
+.section + .section{border-top:var(--rule)}
+.sec-h{display:flex;align-items:baseline;gap:18px;margin-bottom:clamp(40px,6vh,68px);flex-wrap:wrap}
+.sec-num{
+  font-family:var(--mono);font-size:11px;color:var(--leaf);letter-spacing:.32em;
+  border:1px solid rgba(201,153,78,.34);padding:6px 11px;background:rgba(201,153,78,.05);flex-shrink:0;
+}
+.sec-ttl{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(24px,2.6vw,34px);color:var(--paper-hi);letter-spacing:.01em}
+.sec-ttl b{font-style:normal;font-family:var(--prose);font-weight:400;color:var(--body);font-size:clamp(13px,1.1vw,16px);margin-left:8px}
+.sec-rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);min-width:40px}
+.sec-meta{font-family:var(--mono);font-size:9.5px;color:var(--fog);letter-spacing:.25em;text-transform:uppercase}
+
+/* ---------- §01 роман ---------- */
+/* двор с качелями — фон под текстом; слои уводим за содержимое
+   отрицательным z-index внутри собственного контекста наложения */
+#roman{position:relative;isolation:isolate;overflow:hidden}
+#roman::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:var(--photo-yard) 50% 50%/auto 112% no-repeat;
+  filter:brightness(.66) contrast(1.08) saturate(.5) sepia(.28);
+}
+#roman::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:
+    linear-gradient(90deg, rgba(10,9,8,.95) 0%, rgba(10,9,8,.86) 30%, rgba(10,9,8,.5) 62%, rgba(10,9,8,.72) 84%, rgba(10,9,8,.95) 100%),
+    linear-gradient(180deg, #0a0908 0%, rgba(10,9,8,0) 20%, rgba(10,9,8,0) 72%, #0a0908 100%);
+}
+#roman .sec-h,#roman .about{position:relative}
+.about .lead,.about > .reveal p{text-shadow:0 1px 14px rgba(6,5,4,.92)}
+.about{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,5vw,80px);align-items:start}
+.about .lead{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(28px,3.4vw,50px);line-height:1.2;color:var(--paper-hi);margin-bottom:34px;
+}
+.about p{font-size:clamp(15px,1.15vw,17px);line-height:1.8;margin-bottom:20px;max-width:60ch}
+.about p strong{color:var(--paper-hi);font-weight:500}
+.about-card{
+  border:var(--rule);background:rgba(14,13,11,.74);backdrop-filter:blur(8px);
+  padding:clamp(24px,2.6vw,36px);
+}
+.about-card .tk{font-family:var(--mono);font-size:9.5px;letter-spacing:.3em;color:var(--leaf);text-transform:uppercase;margin-bottom:20px}
+.about-card .tone{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(22px,2.1vw,30px);line-height:1.3;color:var(--paper-hi);margin-bottom:22px}
+.about-card p{font-size:14.5px;line-height:1.75;color:var(--body)}
+.facts{list-style:none;margin-top:28px;border-top:1px dashed var(--line)}
+.facts li{
+  display:flex;justify-content:space-between;gap:16px;align-items:baseline;
+  padding:13px 0;border-bottom:1px dashed var(--line);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;color:var(--fog);text-transform:uppercase;
+}
+.facts li b{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--paper-hi);font-weight:500;letter-spacing:.01em;text-transform:none}
+
+/* ---------- §02 карта ---------- */
+.map-wrap{
+  display:grid;grid-template-columns:1.35fr .65fr;gap:clamp(24px,3vw,52px);align-items:stretch;
+  border:var(--rule);background:linear-gradient(180deg,#0c0b09,#08070a);
+}
+.map-stage{position:relative;padding:clamp(16px,2vw,30px);min-width:0}
+/* холст карты — строго квадрат: рельеф и слой точек делят одну систему
+   координат (1024 × 1024 пикселя исходной картинки), поэтому метки
+   держатся своих мест при любой ширине */
+.map-canvas{position:relative;aspect-ratio:1/1;width:100%}
+.map-canvas svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.map-img{
+  position:absolute;inset:0;
+  background:var(--europe) center/100% 100% no-repeat;
+  /* рельеф серо-зелёный — уводим его в бренд: сажа и бронза */
+  filter:brightness(1.25) contrast(1.18) saturate(.55) sepia(.6) hue-rotate(-8deg);
+  -webkit-mask-image:radial-gradient(ellipse closest-side at 50% 48%, #000 64%, transparent 100%);
+          mask-image:radial-gradient(ellipse closest-side at 50% 48%, #000 64%, transparent 100%);
+}
+/* растворяем квадратные края картинки в фоне страницы */
+.map-fade{
+  position:absolute;inset:-1px;pointer-events:none;
+  background:radial-gradient(ellipse closest-side at 50% 48%,
+    transparent 58%, rgba(11,10,8,.72) 86%, #0b0a08 100%);
+}
+.map-glow{
+  position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(ellipse 58% 52% at 54% 40%, rgba(201,153,78,.14), transparent 72%);
+}
+.route{
+  fill:none;stroke:rgba(201,153,78,.34);stroke-width:1.1;stroke-dasharray:5 8;
+  vector-effect:non-scaling-stroke;animation:march 24s linear infinite;
+}
+@keyframes march{to{stroke-dashoffset:-260}}
+
+.city{cursor:pointer}
+.city .halo{fill:rgba(201,153,78,.14);transform-box:fill-box;transform-origin:center;animation:pulse 4.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(.55);opacity:.75}50%{transform:scale(1.5);opacity:.06}}
+.city .ring{fill:none;stroke:var(--leaf);stroke-width:1.2;vector-effect:non-scaling-stroke;opacity:.55;transition:opacity .35s ease}
+.city .dot{fill:var(--leaf-2);transition:fill .35s ease}
+/* размеры точек и подписей задаёт скрипт — в экранных пикселях,
+   иначе на узком экране карта сжимает их до нечитаемого */
+.city .lbl{
+  font-family:var(--mono);letter-spacing:.26em;text-transform:uppercase;
+  fill:#c3b9a6;transition:fill .35s ease;
+  /* подписи лежат на рельефе — тёмная обводка держит их читаемыми */
+  paint-order:stroke fill;stroke:rgba(6,5,4,.85);
+}
+.city .sub{
+  font-family:var(--mono);letter-spacing:.2em;fill:#8b8172;transition:fill .35s ease;
+  paint-order:stroke fill;stroke:rgba(6,5,4,.8);
+}
+.city:hover .lbl,.city.on .lbl{fill:var(--paper-hi)}
+.city:hover .sub,.city.on .sub{fill:var(--leaf)}
+.city:hover .ring,.city.on .ring{opacity:1}
+.city:hover .dot,.city.on .dot{fill:#fff3dd}
+.city:focus{outline:none}
+.city:focus-visible .ring{opacity:1;stroke-width:2.4}
+.map-stage.hot .city:not(.on){opacity:.42;transition:opacity .35s ease}
+
+.map-hint{
+  position:absolute;left:clamp(16px,2vw,30px);bottom:clamp(14px,2vw,26px);
+  font-family:var(--mono);font-size:9px;letter-spacing:.3em;color:#4e4840;text-transform:uppercase;
+}
+
+/* панель цитаты */
+.map-panel{
+  border-left:var(--rule);padding:clamp(26px,2.6vw,40px);
+  display:flex;flex-direction:column;justify-content:center;gap:18px;min-height:340px;position:relative;
+  background:radial-gradient(ellipse 90% 60% at 80% 20%, rgba(201,153,78,.06), transparent 70%);
+}
+/* фон панели: фотография города под текстом + затемнение, чтобы текст читался */
+.mp-bg,.mp-veil{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .9s ease}
+.mp-bg{
+  /* по вертикали кадр смещён к силуэту города — на узкой панели небо уходит вверх */
+  background-position:50% 62%;background-size:cover;background-repeat:no-repeat;
+  filter:brightness(.92) contrast(1.12) saturate(.55) sepia(.3);
+  transform:scale(1.06);transition:opacity .9s ease, transform 7s ease;
+}
+.mp-veil{background:linear-gradient(180deg,rgba(10,9,8,.62),rgba(10,9,8,.46) 45%,rgba(10,9,8,.84))}
+/* на фотографии силуэт города попадает прямо под текст — держим его тенью */
+.map-panel.has-photo .mp-body{text-shadow:0 1px 14px rgba(6,5,4,.95), 0 0 3px rgba(6,5,4,.8)}
+.map-panel.has-photo .mp-bg{opacity:1;transform:none}
+.map-panel.has-photo .mp-veil{opacity:1}
+.mp-idle,.mp-body{position:relative;z-index:1}
+.mp-idle{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:#4e4840;text-transform:uppercase;line-height:2.1}
+.mp-body{display:none}
+.map-panel.on .mp-idle{display:none}
+.map-panel.on .mp-body{display:block;animation:rise .55s cubic-bezier(.22,1,.36,1)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.mp-act{font-family:var(--mono);font-size:9.5px;letter-spacing:.4em;color:var(--leaf);text-transform:uppercase;margin-bottom:14px}
+.mp-city{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(30px,3vw,44px);color:var(--paper-hi);line-height:1;margin-bottom:6px}
+.mp-geo{font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;color:var(--fog);text-transform:uppercase;margin-bottom:26px}
+.mp-quote{
+  font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(17px,1.5vw,24px);
+  line-height:1.5;color:#d6cfc0;padding-left:20px;border-left:1px solid rgba(201,153,78,.4);
+}
+.mp-note{margin-top:22px;font-family:var(--prose);font-style:italic;font-size:13.5px;line-height:1.7;color:#8d8578}
+
+/* ---------- §03 акты ---------- */
+.acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:var(--rule)}
+.act{
+  background:#0c0b09;padding:clamp(26px,2.4vw,38px) clamp(20px,2vw,30px);
+  min-height:270px;display:flex;flex-direction:column;justify-content:space-between;gap:26px;
+  transition:background .55s ease, transform .55s cubic-bezier(.22,1,.36,1);
+}
+.act:hover{background:#131109;transform:translateY(-4px)}
+.act .n{font-family:var(--mono);font-size:10px;letter-spacing:.4em;color:var(--leaf);text-transform:uppercase}
+.act .t{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(26px,2.4vw,36px);color:var(--paper-hi);line-height:1.05}
+.act .d{font-family:var(--prose);font-style:italic;font-size:14px;line-height:1.65;color:#8d8578}
+.act .s{font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:#4e4840;text-transform:uppercase}
+
+/* ---------- §04 голос ---------- */
+/* освещённое окно — фон под текстом, левее центра.
+   Края снимка заранее сведены к цвету страницы и растворены по эллипсу,
+   поэтому прямоугольник кадра не читается — светится только окно. */
+#golos{position:relative;isolation:isolate;overflow:hidden}
+#golos::before{
+  content:"";position:absolute;z-index:-1;pointer-events:none;
+  left:3%;top:52%;transform:translateY(-50%);
+  width:clamp(230px,30vw,410px);aspect-ratio:1;
+  background:var(--photo-window) center/contain no-repeat;
+  opacity:.5;
+}
+/* текст лежит поверх освещённого окна — держим его тенью */
+.voice .voice-lead,.voice > .reveal p{text-shadow:0 1px 12px rgba(6,5,4,.95), 0 0 3px rgba(6,5,4,.7)}
+.voice{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,70px);align-items:start}
+.voice p{font-size:15px;line-height:1.85;max-width:52ch}
+/* .voice p специфичнее одного класса — поэтому лид задаём через .voice */
+.voice .voice-lead{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(26px,3vw,42px);line-height:1.25;color:var(--paper-hi);margin-bottom:26px;max-width:none}
+.formulas{list-style:none;display:flex;flex-direction:column;gap:2px}
+.formulas li{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(20px,2.2vw,32px);line-height:1.35;color:#cdc6b8;
+  padding:20px 0 20px 26px;border-left:1px solid rgba(201,153,78,.3);
+  border-bottom:1px dashed var(--line);
+  transition:color .45s ease, border-left-color .45s ease, padding-left .45s cubic-bezier(.22,1,.36,1);
+}
+.formulas li:hover{color:var(--leaf-2);border-left-color:var(--leaf);padding-left:36px}
+.formulas li:last-child{border-bottom:none}
+
+/* ---------- §05 издание ---------- */
+.editions{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(18px,2vw,26px)}
+.ed{border:var(--rule);background:#0e0d0b;padding:clamp(24px,2.4vw,38px);position:relative;overflow:hidden}
+.ed .tk{font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:var(--fog);text-transform:uppercase;margin-bottom:24px;display:flex;justify-content:space-between;gap:12px}
+.ed .tk b{color:var(--leaf);font-weight:500}
+.cover-slot{display:flex;justify-content:center;perspective:1200px}
+.cover{
+  aspect-ratio:130/200;width:min(230px,72%);padding:30px 24px;position:relative;
+  display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:0 34px 64px rgba(0,0,0,.62);
+  transition:transform .8s cubic-bezier(.22,1,.36,1), box-shadow .8s ease;
+}
+.ed:hover .cover{transform:rotateY(-11deg) translateY(-8px);box-shadow:0 46px 80px rgba(0,0,0,.7)}
+.cover.dark{background:radial-gradient(ellipse at 50% 42%,rgba(201,153,78,.11),transparent 66%),linear-gradient(180deg,#15110c,#08070b);border:1px solid #2a2520;color:var(--paper-hi)}
+.cover.paper{background:var(--paper);border:1px solid #bfb59c;color:var(--ink)}
+.cover.min{background:var(--soot);border:1px solid #2a2520;color:var(--paper-hi)}
+.cover .top{font-family:var(--mono);font-size:7.5px;letter-spacing:.4em;text-transform:uppercase;text-align:center;color:var(--fog)}
+.cover.paper .top,.cover.paper .bot{color:#7a6f55}
+.cover .mid{display:flex;flex-direction:column;align-items:center}
+.cover .mid .mk{height:96px}
+.cover.dark .mid .mk{filter:drop-shadow(0 6px 24px rgba(201,153,78,.4))}
+.cover.paper .mid .mk{filter:grayscale(1) brightness(.28)}
+.cover .name{font-family:var(--serif);font-style:italic;font-weight:300;font-size:31px;line-height:.95;margin-top:16px;text-align:center}
+.cover .bot{font-family:var(--mono);font-size:7px;letter-spacing:.4em;text-transform:uppercase;text-align:center;color:var(--fog)}
+.cover.min .mid{align-items:flex-start;flex:1;justify-content:center;gap:10px}
+.cover.min .hair{width:32px;height:1px;background:var(--leaf)}
+.cover.min .name{text-align:left;font-size:33px;margin-top:0}
+.cover.min .ln{font-family:var(--prose);font-style:italic;font-size:10.5px;line-height:1.5;color:var(--body);margin-top:12px}
+.cover.min .corner{display:flex;justify-content:flex-end}
+.cover.min .corner .mk{height:48px;filter:drop-shadow(0 4px 16px rgba(201,153,78,.35))}
+.ed .spec{margin-top:24px;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;color:#4e4840;text-transform:uppercase;border-top:1px dashed var(--line);padding-top:14px}
+
+/* ---------- финал ---------- */
+.finale{
+  text-align:center;padding:clamp(100px,16vh,180px) var(--gutter);border-top:var(--rule);position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 800px 420px at 50% 40%, rgba(201,153,78,.09), transparent 70%);
+}
+.finale .mark{height:104px;margin:0 auto 30px;filter:drop-shadow(0 10px 44px rgba(201,153,78,.4));animation:sway 15s ease-in-out infinite}
+.finale h2{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(32px,5vw,74px);line-height:1.08;color:var(--paper-hi);margin-bottom:20px}
+.finale .sub{font-family:var(--prose);font-style:italic;font-size:clamp(14px,1.2vw,17px);color:#8d8578;margin-bottom:44px}
+.subscribe{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:520px;margin:0 auto}
+.subscribe input{
+  flex:1;min-width:220px;background:transparent;border:1px solid rgba(232,223,200,.18);
+  color:var(--paper-hi);padding:15px 18px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  border-radius:1px;transition:border-color .35s ease;
+}
+.subscribe input::placeholder{color:#4e4840;text-transform:uppercase;letter-spacing:.24em;font-size:10px}
+.subscribe input:focus{outline:none;border-color:var(--leaf)}
+.sub-done{
+  font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--leaf);
+  text-transform:uppercase;margin-top:22px;opacity:0;transition:opacity .6s ease;
+}
+.sub-done.on{opacity:1}
+
+.foot{
+  padding:20px var(--gutter);border-top:var(--rule);
+  display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:#4e4840;text-transform:uppercase;
+}
+.foot b{color:var(--leaf);font-weight:500}
+
+/* ---------- появление ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.1s}
+.reveal[data-d="2"]{transition-delay:.2s}
+.reveal[data-d="3"]{transition-delay:.3s}
+.reveal[data-d="4"]{transition-delay:.4s}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1080px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding-bottom:130px}
+  .hero-right{order:-1;margin-bottom:8px}
+  .hero-leaf{height:min(34vh,280px)}
+  .about,.voice{grid-template-columns:1fr}
+  /* в столбик окно уходит под вводный текст, ближе к левому краю */
+  #golos::before{width:clamp(200px,56vw,300px);left:-3%;top:34%;opacity:.42}
+  /* на узком экране секция вытягивается в столбик, и фотография превращалась
+     в вертикальную полоску — показываем её кадром сверху и растворяем вниз */
+  #roman::before{
+    background-size:142% auto;background-position:50% 0;
+    -webkit-mask-image:linear-gradient(180deg,#000 0 24%,transparent 46%);
+            mask-image:linear-gradient(180deg,#000 0 24%,transparent 46%);
+  }
+  #roman::after{
+    background:linear-gradient(180deg, rgba(10,9,8,.5) 0%, rgba(10,9,8,.72) 22%, #0a0908 46%);
+  }
+  .map-wrap{grid-template-columns:1fr}
+  .map-panel{border-left:none;border-top:var(--rule);min-height:auto}
+  .scroll-cue{display:none}
+  .stamp-corner{display:none}
+}
+@media (max-width:720px){
+  .nav-links{display:none}
+  .nav-cta{margin-left:auto}
+  .tape span:nth-child(2){display:none}
+  .city .sub{display:none}   /* на телефоне достаточно названия */
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}

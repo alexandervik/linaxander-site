@@ -1,0 +1,295 @@
+<!-- Вставить в Code Block на странице Squarespace. -->
+<!-- Стили и скрипт приходят из Page Header Code Injection. -->
+
+<canvas id="rain" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- ══════════════ ШАПКА ══════════════ -->
+<div class="nav lx-nav" id="nav">
+  <a class="nav-mark" href="#top">
+    <i class="mk" aria-hidden="true"></i>
+    <span>Линаксандер</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#roman">Роман</a>
+    <a href="#karta">Карта</a>
+    <a href="#akty">Части</a>
+    <a href="#golos">Голос</a>
+    <a href="#izdanie">Издание</a>
+  </nav>
+  <a class="nav-cta" href="#finale">Читать</a>
+</div>
+
+<div class="lx-main" id="top">
+
+<!-- ══════════════ ГЕРОЙ ══════════════ -->
+<section class="hero">
+  <div class="hero-rules" aria-hidden="true"></div>
+  <span class="ct tl"></span><span class="ct tr"></span><span class="ct bl"></span><span class="ct br"></span>
+
+  <div class="drift" aria-hidden="true">
+    <i class="mk"></i><i class="mk"></i>
+    <i class="mk"></i><i class="mk"></i>
+  </div>
+
+  <div class="stamp-corner">// ЧАСТЬ 01 · ДО</div>
+
+  <div class="hero-left">
+    <div class="pre">Роман<i>// 2026 — 2027</i></div>
+    <h1>Линаксандер</h1>
+    <span class="stamp">— Алекс Вик —</span>
+    <blockquote class="hero-quote">
+      «Серое на сером шевельнулось, искривило перспективу, и проступило на свет.
+      <b>Лица у него тогда ещё не было.</b> Он чуть поднял руки в стороны.
+      Саша понял — это такое немое <em>«Здравствуй!»</em>»
+    </blockquote>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="#finale">Читать →</a>
+      <a class="btn btn-ghost" href="#roman">Об авторе</a>
+    </div>
+    <div class="hero-meta">
+      <div>// Автор<b>Алекс Вик</b></div>
+      <div>// Форма<b>Роман</b></div>
+      <div>// Статус<b>В работе</b></div>
+      <div>// Дата выхода<b>Осень 2027</b></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <i class="mk hero-leaf" role="img" aria-label="Линаксандер — знак «золотой лист»"></i>
+  </div>
+
+  <a class="scroll-cue" href="#roman">Вниз</a>
+
+  <div class="tape">
+    <span><b>Линаксандер</b> · роман Алекса Вика</span>
+    <span>Октябрь в этом году сдавался рано</span>
+    <span>2026 · проза</span>
+  </div>
+</section>
+
+<!-- ══════════════ §01 РОМАН ══════════════ -->
+<section class="section" id="roman">
+  <div class="sec-h reveal">
+    <div class="sec-num">§ 01</div>
+    <div class="sec-ttl">Роман<b>· о чём</b></div>
+    <div class="sec-rule"></div>
+    <div class="sec-meta">пять частей · тридцать лет</div>
+  </div>
+
+  <div class="about">
+    <div class="reveal">
+      <p class="lead">"Он знал, что звезды над детской площадкой вечерами<br>кололи зернистые облака."</p>
+      <p>Тень, что присела рядом с пятилетним мальчиком на качели, прожила с ним тридцать лет и вышла на свет. <strong>Роман о том, останется ли кто-то после девяти лет любви человеком.</strong></p>
+      <p>.</p>
+      <p>Четыре города держат эту историю, как четыре гвоздя держат раму. Между ними — вода, вокзалы и дождь.</p>
+    </div>
+
+    <aside class="about-card reveal" data-d="2">
+      <div class="tk">// Об авторе и о романе</div>
+      <div class="tone">Тихо. Аскетично.<br>Без объяснений.</div>
+      <p>Конкретные детали.</p>
+      <ul class="facts">
+        <li>Форма <b>Пишет по-русски в Стокгольме. Роман о девяти годах, прожитых в Швеции, написан на языке, на котором в этой стране почти не читают..</b></li>
+        <li>Актя <b>По профессии охраняет чужие системы от вторжения. Архитектор информационной безопасности. Роман — о человеке, который девять лет не замечал взлома.</b></li>
+        <li>История <b>Начал писать через несколько лет после того, как всё закончилось.</b></li>
+        <li>Знак <b>Носит имя, которого нет ни в одном языке. «Линаксандер» — слово, собранное из двух имён, и оно существует только внутри книги.</b></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ══════════════ §02 КАРТА ══════════════ -->
+<section class="section" id="karta">
+  <div class="sec-h reveal">
+    <div class="sec-num">§ 02</div>
+    <div class="sec-ttl">География<b>· четыре города</b></div>
+    <div class="sec-rule"></div>
+    <div class="sec-meta">наведите на город</div>
+  </div>
+
+  <div class="map-wrap reveal">
+    <div class="map-stage" id="mapStage">
+      <div class="map-canvas" id="mapCanvas">
+        <div class="map-img" role="img" aria-label="Рельефная карта Европы"></div>
+        <div class="map-fade"></div>
+        <div class="map-glow"></div>
+        <svg id="map" aria-label="Города романа на карте"></svg>
+      </div>
+      <div class="map-hint">// Европа · рельеф · четыре города</div>
+    </div>
+
+    <aside class="map-panel" id="mapPanel">
+      <div class="mp-bg" id="mpBg"></div>
+      <div class="mp-veil"></div>
+      <div class="mp-idle">
+        Москва<br>Амстердам<br>Стокгольм<br>Варшава<br><br>
+        — наведите на точку —
+      </div>
+      <div class="mp-body">
+        <div class="mp-act" id="mpAct"></div>
+        <div class="mp-city" id="mpCity"></div>
+        <div class="mp-geo" id="mpGeo"></div>
+        <blockquote class="mp-quote" id="mpQuote"></blockquote>
+        <div class="mp-note" id="mpNote"></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ══════════════ §03 АКТЫ ══════════════ -->
+<section class="section" id="akty">
+  <div class="sec-h reveal">
+    <div class="sec-num">§ 03</div>
+    <div class="sec-ttl">Пять частей<b>· строение</b></div>
+    <div class="sec-rule"></div>
+    <div class="sec-meta">I — V · от качелей до света</div>
+  </div>
+
+  <div class="acts reveal">
+    <article class="act">
+      <div class="n">Часть I</div>
+      <div>
+        <div class="t">ДО</div>
+        <div class="d">Двор, поздняя осень, серое на сером. Лица у него тогда ещё не было.</div>
+      </div>
+      <div class="s">Время утеряно · 5 лет</div>
+    </article>
+    <article class="act">
+      <div class="n">Часть II</div>
+      <div>
+        <div class="t">РЕ</div>
+        <div class="d">Город сушит горло. Тень впервые уходит первой — и возвращается.</div>
+      </div>
+      <div class="s">Варшава · 19 лет</div>
+    </article>
+    <article class="act">
+      <div class="n">Часть III</div>
+      <div>
+        <div class="t">МИ</div>
+        <div class="d">Вода в каналах стоит ровно. Девять лет начинаются с чужой кухни.</div>
+      </div>
+      <div class="s">Амстердам · 27 лет</div>
+    </article>
+    <article class="act">
+      <div class="n">Часть IV</div>
+      <div>
+        <div class="t">ФА</div>
+        <div class="d">Тихо так, что слышно провода.</div>
+      </div>
+      <div class="s">Стокгольм · 33 года</div>
+    </article>
+    <article class="act">
+      <div class="n">Часть V</div>
+      <div>
+        <div class="t">СОЛЬ</div>
+        <div class="d">Дальше решает не он.</div>
+      </div>
+      <div class="s">Возвращение · 35 лет</div>
+    </article>
+  </div>
+</section>
+
+<!-- ══════════════ §04 ГОЛОС ══════════════ -->
+<section class="section" id="golos">
+  <div class="sec-h reveal">
+    <div class="sec-num">§ 04</div>
+    <div class="sec-ttl">Голос<b>· ключевые формулы</b></div>
+    <div class="sec-rule"></div>
+    <div class="sec-meta">пять фраз · вся книга</div>
+  </div>
+
+  <div class="voice">
+    <div class="reveal">
+      <p class="voice-lead">Эпиграф не нужен.<br>Восклицания не нужны.</p>
+      <p>Иронию выкручиваем в ноль. Юмор — только горький, и редко. Копирайтинг не комментирует образ — он даёт его. Всё, что можно показать штаниной, вороной и треснутым стеклом, показывается ими.</p>
+    </div>
+    <ul class="formulas reveal" data-d="2">
+      <li>«Лица у него тогда ещё не было.»</li>
+      <li>«Ещё жёлтые листья уже скручивал холод.»</li>
+      <li>«Проводочки покоя.»</li>
+      <li>«Серое на сером шевельнулось.»</li>
+      <li>«Дым с юга.»</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════ §05 ИЗДАНИЕ ══════════════ -->
+<section class="section" id="izdanie">
+  <div class="sec-h reveal">
+    <div class="sec-num">§ 05</div>
+    <div class="sec-ttl">Издание<b>· три обложки</b></div>
+    <div class="sec-rule"></div>
+    <div class="sec-meta">мягкая обложка · 130 × 200 мм</div>
+  </div>
+
+  <div class="editions">
+    <div class="ed reveal">
+      <div class="tk"><b>// версия А</b><span>тёмная</span></div>
+      <div class="cover-slot">
+        <div class="cover dark">
+          <span class="ct tl"></span><span class="ct tr"></span><span class="ct bl"></span><span class="ct br"></span>
+          <div class="top">— Алекс Вик —</div>
+          <div class="mid">
+            <i class="mk" aria-hidden="true"></i>
+            <div class="name">Линаксандер</div>
+          </div>
+          <div class="bot">Роман · 2026</div>
+        </div>
+      </div>
+      <div class="spec"><span>Сажа #0A0908</span><span>Фольга «золото»</span></div>
+    </div>
+
+    <div class="ed reveal" data-d="2">
+      <div class="tk"><b>// версия Б</b><span>бумага</span></div>
+      <div class="cover-slot">
+        <div class="cover paper">
+          <div class="top">— Алекс Вик —</div>
+          <div class="mid">
+            <i class="mk" aria-hidden="true"></i>
+            <div class="name">Линаксандер</div>
+          </div>
+          <div class="bot">Роман · 2026</div>
+        </div>
+      </div>
+      <div class="spec"><span>Бумага #E8DFC8</span><span>Чернила #1A1614</span></div>
+    </div>
+
+    <div class="ed reveal" data-d="3">
+      <div class="tk"><b>// версия В</b><span>минимал</span></div>
+      <div class="cover-slot">
+        <div class="cover min">
+          <div class="corner"><i class="mk" aria-hidden="true"></i></div>
+          <div class="mid">
+            <div class="hair"></div>
+            <div class="name">Линакс-<br>андер</div>
+            <div class="ln">«Лица у него тогда ещё не было.»</div>
+          </div>
+          <div class="bot" style="text-align:left">А. Вик · роман · 2026</div>
+        </div>
+      </div>
+      <div class="spec"><span>Переиздание</span><span>Акцент #C9994E</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ФИНАЛ ══════════════ -->
+<section class="finale" id="finale">
+  <i class="mk mark" aria-hidden="true"></i>
+  <h2>"Какое-то время троеточие<br>висело ровно посередине между ними."</h2>
+  <p class="sub">Оставьте почту — напишем, когда «Линаксандер» выйдет.</p>
+  <form class="subscribe" id="subForm" novalidate>
+    <input type="email" id="subMail" placeholder="почта" aria-label="Электронная почта" required>
+    <button class="btn btn-gold" type="submit">Подписаться</button>
+  </form>
+  <div class="sub-done" id="subDone">// записали. остаемся на связи.</div>
+</section>
+
+</div>
+
+<div class="foot lx-foot">
+  <span>// Линаксандер · <b>роман</b></span>
+  <span>© 2026 · Алекс Вик · все права</span>
+  <span>Знак «золотой лист» · <b>1 / 1</b></span>
+</div>
