@@ -188,10 +188,10 @@ button{font:inherit;cursor:pointer}
 .btn-ghost:hover{border-color:var(--paper);transform:translateY(-2px)}
 .hero-meta{
   margin-top:38px;display:flex;gap:clamp(20px,3.2vw,42px);flex-wrap:wrap;
-  font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;color:var(--fog);text-transform:uppercase;
+  font-family:var(--mono);font-size:13px;letter-spacing:.22em;color:var(--fog);text-transform:uppercase;
 }
 .hero-meta b{
-  color:var(--paper-hi);font-weight:500;display:block;margin-top:5px;font-size:17px;
+  color:var(--paper-hi);font-weight:500;display:block;margin-top:6px;font-size:21px;
   letter-spacing:.02em;font-family:var(--serif);font-style:italic;text-transform:none;
 }
 .hero-right{position:relative;z-index:6;display:flex;align-items:center;justify-content:center;height:100%}
@@ -273,7 +273,7 @@ button{font:inherit;cursor:pointer}
   font-size:clamp(28px,3.4vw,50px);line-height:1.2;color:var(--paper-hi);margin-bottom:34px;
 }
 .about p{font-size:clamp(17px,1.3vw,19px);line-height:1.8;margin-bottom:20px;max-width:60ch}
-.about p strong{color:var(--paper-hi);font-weight:500}
+.about p strong{color:var(--leaf-2);font-weight:500}
 .about-card{
   border:var(--rule);background:rgba(14,13,11,.74);backdrop-filter:blur(8px);
   padding:clamp(24px,2.6vw,36px);
