@@ -168,9 +168,18 @@ var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     note: document.getElementById('mpNote')
   };
   var bg = document.getElementById('mpBg');
+  var hint = document.getElementById('mpHint');
   var nodes = [];
+  var DEFAULT_ID = 'msk';          // с этим городом страница открывается
 
-  function show(c, node){
+  /* в подсказке перечисляем те города, что сейчас не показаны */
+  function fillHint(activeId){
+    var rest = CITIES.filter(function(c){ return c.id !== activeId; })
+                     .map(function(c){ return c.name; });
+    hint.innerHTML = rest.join('<br>') + '<br><br>— наведите на точку —';
+  }
+
+  function show(c, node, dim){
     f.act.textContent = c.act;
     f.city.textContent = c.name;
     f.geo.textContent = c.geo;
@@ -180,14 +189,15 @@ var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     bg.style.backgroundPosition = c.focus || '50% 60%';
     panel.classList.toggle('has-photo', !!c.photo);
     panel.classList.add('on');
-    stage.classList.add('hot');
+    stage.classList.toggle('hot', dim !== false);   // при загрузке не гасим соседей
     nodes.forEach(function(n){ n.classList.toggle('on', n === node); });
+    fillHint(c.id);
   }
+  /* уводя мышь, возвращаемся к городу по умолчанию, а не в пустую панель */
   function clear(){
-    panel.classList.remove('on');
-    panel.classList.remove('has-photo');
-    stage.classList.remove('hot');
-    nodes.forEach(function(n){ n.classList.remove('on'); });
+    var i = 0;
+    for (var k = 0; k < CITIES.length; k++) if (CITIES[k].id === DEFAULT_ID) i = k;
+    show(CITIES[i], nodes[i], false);
   }
 
   var marks = [];
@@ -258,6 +268,10 @@ var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (b.width && (b.x < minX || b.x + b.width > maxX)) place(m, -m.c.dir);
     });
   }
+
+  /* открываем страницу с уже показанной Москвой */
+  clear();
+  setTimeout(function(){ hint.classList.add('in'); }, 900);
 
   layout();
   /* наблюдаем за контейнером, а не за самим <svg>: на SVG-элементе
