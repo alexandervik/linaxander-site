@@ -4,14 +4,13 @@
    может отрисоваться позже самого скрипта. */
 (function boot(attempt){
   attempt = attempt || 0;
-  var ready = document.getElementById('rain') && document.getElementById('map');
-  if (!ready){
-    if (document.readyState === 'loading'){
-      return document.addEventListener('DOMContentLoaded', function(){ boot(0); }, {once:true});
-    }
-    if (attempt < 40) return setTimeout(function(){ boot(attempt + 1); }, 100);
-    return;                                  // разметки нет — тихо выходим
+  if (document.readyState === 'loading'){
+    return document.addEventListener('DOMContentLoaded', function(){ boot(0); }, {once:true});
   }
+  // на разных страницах свой набор блоков — ждём любой из знакомых
+  var ready = document.getElementById('rain') || document.getElementById('map') ||
+              document.getElementById('subForm') || document.querySelector('.reveal');
+  if (!ready && attempt < 40) return setTimeout(function(){ boot(attempt + 1); }, 100);
   lxInit();
 })();
 
@@ -26,6 +25,7 @@ var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
    ══════════════════════════════════════════════════════════ */
 (function rain(){
   var cv = document.getElementById('rain');
+  if (!cv) return;                       // на странице отрывка дождя нет
   var ctx = cv.getContext('2d');
   var W = 0, H = 0, dpr = 1, drops = [], raf = null;
 
@@ -138,6 +138,7 @@ var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
   var svg = document.getElementById('map');
+  if (!svg) return;                      // карта есть только на главной
   svg.setAttribute('viewBox', '0 0 ' + VB + ' ' + VB);
 
   /* — маршрут: Москва → Варшава → Амстердам → Стокгольм — */
@@ -307,7 +308,8 @@ var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* ══════════════════════════════════════════════════════════
    4. ПОДПИСКА — без сети, подтверждение на месте
    ══════════════════════════════════════════════════════════ */
-document.getElementById('subForm').addEventListener('submit', function(e){
+var subForm = document.getElementById('subForm');
+if (subForm) subForm.addEventListener('submit', function(e){
   e.preventDefault();
   var mail = document.getElementById('subMail');
   var done = document.getElementById('subDone');

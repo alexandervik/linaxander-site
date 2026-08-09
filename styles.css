@@ -456,6 +456,49 @@ button{font:inherit;cursor:pointer}
 .ed:hover .cover-photo{transform:scale(1.03);filter:brightness(1.06) contrast(1.04) saturate(.8) sepia(.06)}
 .ed .spec{margin-top:24px;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:#4e4840;text-transform:uppercase;border-top:1px dashed var(--line);padding-top:14px}
 
+
+/* ---------- страница отрывка ---------- */
+.read{padding:clamp(120px,16vh,190px) var(--gutter) clamp(60px,8vh,100px);position:relative}
+.read-head{max-width:40rem;margin:0 auto clamp(40px,6vh,70px)}
+.read-pre{
+  font-family:var(--mono);font-size:11px;letter-spacing:.5em;color:var(--leaf);
+  text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:14px;
+}
+.read-pre::before{content:"";display:inline-block;width:38px;height:1px;background:var(--leaf)}
+.read h1{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(40px,6vw,86px);line-height:.95;color:var(--leaf-2);letter-spacing:.004em;
+}
+.read-note{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;color:var(--fog);
+  text-transform:uppercase;margin-top:20px;
+}
+/* сам текст: колонка под чтение, абзацы с красной строки */
+.prose{
+  max-width:40rem;margin:0 auto;
+  font-family:var(--prose);font-size:clamp(18px,1.45vw,21px);line-height:1.85;color:#cdc6b8;
+}
+.prose p{text-indent:1.8em;margin-bottom:.15em}
+.prose > p:first-child{text-indent:0}
+/* буквица — только у самого первого абзаца, не у строк переписки */
+.prose > p:first-child::first-letter{
+  font-family:var(--serif);font-style:italic;font-size:3.4em;line-height:.8;
+  float:left;padding:.06em .12em 0 0;color:var(--leaf-2);
+}
+/* переписка: строки идут как в рукописи — с отступом, но без красной строки */
+.prose .msgs{margin:1.4em 0;display:flex;flex-direction:column;gap:.35em}
+.prose .msgs p{text-indent:0;padding-left:1.8em;margin:0;color:#d6cfc0}
+.read-end{
+  max-width:40rem;margin:clamp(50px,7vh,80px) auto 0;display:flex;align-items:center;gap:18px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;color:#4e4840;text-transform:uppercase;
+}
+.read-end::before,.read-end::after{content:"";flex:1;height:1px;background:var(--line)}
+.read-back{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--fog);text-decoration:none;transition:color .35s ease;margin-left:auto;
+}
+.read-back:hover{color:var(--paper-hi)}
+
 /* ---------- финал ---------- */
 .finale{
   text-align:center;padding:clamp(100px,16vh,180px) var(--gutter);border-top:var(--rule);position:relative;overflow:hidden;
