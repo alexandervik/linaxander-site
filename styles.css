@@ -286,10 +286,10 @@ button{font:inherit;cursor:pointer}
 .facts{list-style:none;margin-top:28px;border-top:1px dashed var(--line)}
 .facts li{
   display:flex;justify-content:space-between;gap:16px;align-items:baseline;
-  padding:13px 0;border-bottom:1px dashed var(--line);
-  font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--fog);text-transform:uppercase;
+  padding:16px 0;border-bottom:1px dashed var(--line);
+  font-family:var(--mono);font-size:13px;letter-spacing:.22em;color:var(--fog);text-transform:uppercase;
 }
-.facts li b{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--paper-hi);font-weight:500;letter-spacing:.01em;text-transform:none}
+.facts li b{font-family:var(--serif);font-style:italic;font-size:22.5px;line-height:1.45;color:var(--paper-hi);font-weight:500;letter-spacing:.01em;text-transform:none}
 
 /* ---------- §02 карта ---------- */
 .map-wrap{
